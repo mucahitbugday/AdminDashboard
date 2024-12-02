@@ -10,9 +10,6 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   const { user, loading } = useAuth()
   const pathname = usePathname()
   const router = useRouter()
-
-  console.log('user', user)
-
   useEffect(() => {
     if (!loading && !user && pathname !== '/login' && pathname !== '/register') {
       router.push('/login')

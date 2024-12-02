@@ -39,9 +39,6 @@ export default function Sidebar() {
   const [openSubMenus, setOpenSubMenus] = useState<string[]>([])
   const { user } = useAuth()
 
-
-  console.log('Logo', logo.src)
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
