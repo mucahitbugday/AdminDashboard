@@ -7,15 +7,17 @@ import Sidebar from '@/components/Sidebar'
 import Header from '@/components/Header'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
   const pathname = usePathname()
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (!user && pathname !== '/login' && pathname !== '/register') {
-  //     router.push('/login')
-  //   }
-  // }, [user, pathname, router])
+  console.log('user', user)
+
+  useEffect(() => {
+    if (!loading && !user && pathname !== '/login' && pathname !== '/register') {
+      router.push('/login')
+    }
+  }, [user, loading, pathname, router])
 
   // Login ve register sayfalarında layout'u gösterme
   if (pathname === '/login' || pathname === '/register') {

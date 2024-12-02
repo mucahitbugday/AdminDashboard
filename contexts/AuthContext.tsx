@@ -9,6 +9,7 @@ type User = {
 
 type AuthContextType = {
   user: User
+  loading: boolean // Loading durumunu ekledik
   login: (email: string, password: string) => Promise<boolean>
   logout: () => void
   register: (name: string, email: string, password: string) => Promise<boolean>
@@ -18,35 +19,44 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null)
+  const [loading, setLoading] = useState<boolean>(true) // Yüklenme durumunu tanımladık
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
     if (storedUser) {
       setUser(JSON.parse(storedUser))
     }
+    setLoading(false) // Yükleme tamamlandı
   }, [])
 
   const login = async (email: string, password: string) => {
+    setLoading(true) // Login işlemi başlıyor
     // Burada normalde bir API çağrısı yapılır
     if (email === 'mucahit@admin.com' && isValidPassword(password)) {
       const newUser = { name: 'Mücahit', email }
       setUser(newUser)
       localStorage.setItem('user', JSON.stringify(newUser))
+      setLoading(false) // Login tamamlandı
       return true
     }
+    setLoading(false) // Hatalı giriş
     return false
   }
 
   const logout = () => {
+    setLoading(true) // Logout işlemi başlıyor
     setUser(null)
     localStorage.removeItem('user')
+    setLoading(false) // Logout tamamlandı
   }
 
   const register = async (name: string, email: string, password: string) => {
+    setLoading(true) // Register işlemi başlıyor
     // Burada normalde bir API çağrısı yapılır
     const newUser = { name, email }
     setUser(newUser)
     localStorage.setItem('user', JSON.stringify(newUser))
+    setLoading(false) // Register tamamlandı
     return true
   }
 
@@ -61,7 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   )
@@ -74,4 +84,3 @@ export function useAuth() {
   }
   return context
 }
-

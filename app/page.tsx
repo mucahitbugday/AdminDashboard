@@ -5,14 +5,14 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function HomePage() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push('/login')
-  //   }
-  // }, [user, router])
+  useEffect(() => {
+    if (!user) {
+      router.push('/login')
+    }
+  }, [user, router])
 
   if (!user) {
     return null
