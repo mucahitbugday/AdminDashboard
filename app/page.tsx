@@ -24,15 +24,15 @@ export default function HomePage() {
   if (!user) {
     return null
   }
- 
+
 
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6">Ana Sayfa</h1>
       <p className="mb-6">Hoş geldiniz, {user.email}!</p>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-5">
         <StatCard title="TODAY'S VISITS" value="7,842,900" description="Better than last week (70.1%)" bgColor="bg-teal-500" icon={<Globe />} />
         <StatCard title="TODAY'S PROFIT" value="180,200" description="Better than last week (40.5%)" bgColor="bg-blue-500" icon={<DollarSign />} />
         <StatCard title="NEW ORDERS" value="38,900" description="Better than last week (76.3%)" bgColor="bg-purple-500" icon={<ShoppingCart />} />

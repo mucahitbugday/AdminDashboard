@@ -69,7 +69,6 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ type }) => {
 
   const colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'];
 
-  const title = 'Sample Heatmap';
 
   const options: ApexOptions = {
     chart: {
@@ -81,7 +80,6 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ type }) => {
     },
     colors: colors,
     title: {
-      text: title,
       align: 'center',
       style: {
         fontSize: '16px',
@@ -108,9 +106,13 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ type }) => {
   };
 
   return (
-    <div className="col-span-1 md:col-span-3 lg:col-span-3">
+
+    <div className="p-4 shadow-md rounded-md bg-white">
+      <h2 className="text-xl font-semibold mb-4">HeatMap Grafiği</h2>
       <ReactApexChart options={options} series={seriesData} type="heatmap" height={350} />
     </div>
+
+
   );
 };
 
