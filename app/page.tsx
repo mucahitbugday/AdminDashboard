@@ -16,10 +16,10 @@ export default function HomePage() {
   const router = useRouter()
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !loading) {
       router.push('/login')
     }
-  }, [user, router])
+  }, [user, router, loading])
 
   if (!user) {
     return null
@@ -28,9 +28,7 @@ export default function HomePage() {
 
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">Ana Sayfa</h1>
-      <p className="mb-6">Hoş geldiniz, {user.email}!</p>
+    <div className="bg-gray-100 min-h-screen">
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-5">
         <StatCard title="TODAY'S VISITS" value="7,842,900" description="Better than last week (70.1%)" bgColor="bg-teal-500" icon={<Globe />} />
@@ -43,7 +41,7 @@ export default function HomePage() {
         <PieChart />
         <BarChart />
         <LineChart />
-        <HeatmapChart type='Veri' />
+        {/* <HeatmapChart type='Veri' /> */}
       </div>
 
 

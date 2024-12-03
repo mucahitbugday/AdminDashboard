@@ -32,7 +32,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <Sidebar />
       <div className="flex flex-col flex-1 w-full">
         <Header />
-        <main className="flex-1 p-4 overflow-y-auto lg:p-8">
+        <main className="flex-1 p-4 overflow-y-auto">
           {children}
         </main>
       </div>
