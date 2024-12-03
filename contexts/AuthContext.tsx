@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null)
-  const [loading, setLoading] = useState<boolean>(true) // Yüklenme durumunu tanımladık
+  const [loading, setLoading] = useState<boolean>(true) 
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
