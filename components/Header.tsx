@@ -27,82 +27,102 @@ export default function Header() {
     router.push('/login')
   }
 
+  const clearNotifications = () => {
+    setUnreadNotifications(0)
+  }
+
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-sm p-4  px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-      <div className="flex items-center">
+    <header className="bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-gray-800 dark:to-black shadow-md p-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      {/* Logo and Title */}
+      <div className="flex items-center space-x-4">
         <Button
           variant="ghost"
           size="icon"
-          className="mr-2 lg:hidden"
+          className="lg:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <Menu className="h-6 w-6" />
+          <Menu className="h-6 w-6 text-white dark:text-gray-200" />
         </Button>
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
       </div>
-      <div className="flex items-center space-x-2 sm:space-x-4">
-        <ThemeToggle />
+
+      {/* Right-side Actions */}
+      <div className="flex items-center space-x-4">
+        {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="relative">
-              <Bell className="h-4 w-4" />
+            <Button variant="outline" size="icon" className="relative text-gray-800 dark:text-gray-200">
+              <Bell className="h-5 w-5 text-gray-800 dark:text-gray-200" />
               {unreadNotifications > 0 && (
-                <span className="absolute top-0 right-0 h-3 w-3 bg-red-500 rounded-full text-[10px] flex items-center justify-center text-white">
+                <span className="absolute top-0 right-0 h-4 w-4 bg-red-600 text-xs rounded-full flex items-center justify-center">
                   {unreadNotifications}
                 </span>
               )}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-64 sm:w-80" align="end" forceMount>
-            <DropdownMenuLabel>Bildirimler</DropdownMenuLabel>
+          <DropdownMenuContent className="w-64 sm:w-80 bg-white dark:bg-gray-900" align="end" forceMount>
+            <DropdownMenuLabel className="text-gray-800 dark:text-gray-200">Bildirimler</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <div className="max-h-[300px] overflow-auto">
-              <DropdownMenuItem>
+              <DropdownMenuItem className="text-gray-800 dark:text-gray-200">
                 <span className="h-2 w-2 rounded-full bg-blue-500 mr-2" />
                 <span>Yeni bir kullanıcı kaydoldu</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="text-gray-800 dark:text-gray-200">
                 <span className="h-2 w-2 rounded-full bg-yellow-500 mr-2" />
                 <span>Sistem güncellemesi mevcut</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="text-gray-800 dark:text-gray-200">
                 <span className="h-2 w-2 rounded-full bg-red-500 mr-2" />
                 <span>Kritik hata tespit edildi</span>
               </DropdownMenuItem>
             </div>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-center">
-              Tüm bildirimleri gör
+            <DropdownMenuItem
+              className="text-center text-gray-800 dark:text-gray-200"
+              onClick={clearNotifications}
+            >
+              Tüm bildirimleri okundu olarak işaretle
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+
+        {/* User Profile */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="/avatars/01.png" alt="@johndoe" />
+            <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src="/avatars/01.png" alt={user?.email || "User"} />
                 <AvatarFallback>{user?.email?.charAt(0).toUpperCase()}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end" forceMount>
-            <DropdownMenuLabel className="font-normal">
+          <DropdownMenuContent className="w-56 bg-white dark:bg-gray-900" align="end" forceMount>
+            <DropdownMenuLabel>
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">{user?.email}</p>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{user?.email}</p>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
+            <DropdownMenuItem className="text-gray-800 dark:text-gray-200">
+              <User className="mr-2 h-4 w-4 text-gray-800 dark:text-gray-200" />
               <span>Profil</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
+            <DropdownMenuItem className="text-gray-800 dark:text-gray-200">
+              <Settings className="mr-2 h-4 w-4 text-gray-800 dark:text-gray-200" />
               <span>Ayarlar</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />
+            {/* Theme Toggle in Dropdown */}
+            <div className="px-2 py-1">
+              <ThemeToggle />
+            </div>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className="text-red-500 dark:text-red-400"
+            >
+              <LogOut className="mr-2 h-4 w-4 text-red-500 dark:text-red-400" />
               <span>Çıkış Yap</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -111,4 +131,3 @@ export default function Header() {
     </header>
   )
 }
-
