@@ -69,22 +69,15 @@ export default function Sidebar() {
       </Button>
       <aside className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 shadow-md lg:translate-x-0 lg:static`}>
         <nav className="h-full overflow-y-auto">
-
           <div className="flex items-center justify-center py-6 bg-white-100 dark:bg-gray-900 h-16">
             <img src={logo.src} alt="Logo" className="w-auto" />
           </div>
-
-
-
           <ul className="py-4">
             {menuItems.map((item) => (
               <li key={item.name}>
                 {item.subItems ? (
                   <div>
-                    <button
-                      onClick={() => toggleSubMenu(item.name)}
-                      className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700`}
-                    >
+                    <button onClick={() => toggleSubMenu(item.name)} className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700`} >
                       <item.icon className="w-5 h-5 mr-3" />
                       {item.name}
                       {openSubMenus.includes(item.name) ? (
@@ -107,10 +100,8 @@ export default function Sidebar() {
                     )}
                   </div>
                 ) : (
-                  <Link href={item.href} className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${pathname === item.href ? 'bg-gray-100 dark:bg-gray-700' : ''
-                    }`}>
-                    <item.icon className="w-5 h-5 mr-3" />
-                    {item.name}
+                  <Link href={item.href} className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${pathname === item.href ? 'bg-gray-100 dark:bg-gray-700' : ''}`}>
+                    <item.icon className="w-5 h-5 mr-3" />{item.name}
                   </Link>
                 )}
               </li>
