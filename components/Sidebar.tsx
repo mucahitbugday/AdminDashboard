@@ -11,24 +11,24 @@ import logo from '@/public/logo.png';
 
 const menuItems = [
   { name: 'Ana Sayfa', href: '/', icon: Home },
-  {
-    name: 'İstatistikler',
-    icon: BarChart2,
-    subItems: [
-      { name: 'Genel Bakış', href: '/statistics/overview' },
-      { name: 'Satışlar', href: '/statistics/sales' },
-      { name: 'Kullanıcılar', href: '/statistics/users' },
-    ],
-  },
-  {
-    name: 'Kullanıcılar',
-    icon: Users,
-    subItems: [
-      { name: 'Tüm Kullanıcılar', href: '/users/all' },
-      { name: 'Roller', href: '/users/roles' },
-      { name: 'İzinler', href: '/users/permissions' },
-    ],
-  },
+  // {
+  //   name: 'İstatistikler',
+  //   icon: BarChart2,
+  //   subItems: [
+  //     { name: 'Genel Bakış', href: '/statistics/overview' },
+  //     { name: 'Satışlar', href: '/statistics/sales' },
+  //     { name: 'Kullanıcılar', href: '/statistics/users' },
+  //   ],
+  // },
+  // {
+  //   name: 'Kullanıcılar',
+  //   icon: Users,
+  //   subItems: [
+  //     { name: 'Tüm Kullanıcılar', href: '/users/all' },
+  //     { name: 'Roller', href: '/users/roles' },
+  //     { name: 'İzinler', href: '/users/permissions' },
+  //   ],
+  // },
   { name: 'Ayarlar', href: '/settings', icon: Settings },
   { name: 'UI Ayarları', href: '/ui-settings', icon: Palette },
 ]
@@ -75,7 +75,11 @@ export default function Sidebar() {
           <ul className="py-4">
             {menuItems.map((item) => (
               <li key={item.name}>
-                {item.subItems ? (
+                <Link href={item.href} className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${pathname === item.href ? 'bg-gray-100 dark:bg-gray-700' : ''}`}>
+                  <item.icon className="w-5 h-5 mr-3" />{item.name}
+                </Link>
+
+                {/* {item.subItems ? (
                   <div>
                     <button onClick={() => toggleSubMenu(item.name)} className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700`} >
                       <item.icon className="w-5 h-5 mr-3" />
@@ -103,7 +107,7 @@ export default function Sidebar() {
                   <Link href={item.href} className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${pathname === item.href ? 'bg-gray-100 dark:bg-gray-700' : ''}`}>
                     <item.icon className="w-5 h-5 mr-3" />{item.name}
                   </Link>
-                )}
+                )} */}
               </li>
             ))}
           </ul>
