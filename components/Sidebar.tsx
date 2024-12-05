@@ -17,11 +17,14 @@ const menuItems = [
 export default function Sidebar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const { user } = useAuth()
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      const isMobileView = window.innerWidth < 1024
+      setIsMobile(isMobileView)
+      if (!isMobileView) {
         setIsOpen(true)
       } else {
         setIsOpen(false)
@@ -35,8 +38,8 @@ export default function Sidebar() {
   }, [])
 
   const handleMenuClick = () => {
-    if (window.innerWidth < 1024) {
-      setIsOpen(false) // Küçük ekranlarda menü kapansın
+    if (isMobile) {
+      setIsOpen(false)
     }
   }
 
@@ -46,31 +49,29 @@ export default function Sidebar() {
       <Button
         variant="outline"
         size="icon"
-        className={`fixed top-4 left-4 z-50 transition-transform ${
-          isOpen ? 'translate-x-64' : 'translate-x-0'
-        } lg:hidden`}
+        className={`fixed top-4 left-4 z-50 transition-transform ${isOpen ? 'translate-x-64' : 'translate-x-0'
+          } lg:hidden`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </Button>
 
-      {/* Arka Plan Blur */}
-      {isOpen && (
+      {/* Blur Arka Plan - Sadece mobilde */}
+      {isMobile && isOpen && (
         <div
           className="fixed inset-0 z-30 bg-black bg-opacity-30 backdrop-blur-md"
-          onClick={() => setIsOpen(false)} // Blur alana tıklanınca menü kapansın
+          onClick={() => setIsOpen(false)}
         ></div>
       )}
 
       {/* Yan Menü */}
       <aside
-        className={`${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 shadow-md lg:translate-x-0 lg:static`}
+        className={`${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 shadow-md lg:translate-x-0 lg:static`}
       >
         <nav className="h-full overflow-y-auto">
           {/* Logo */}
-          <div className="flex items-center justify-center py-6 bg-white-100 dark:bg-gray-900 h-16">
+          <div className="flex items-center justify-center py-6 bg-white-100 dark:bg-gray-900 h-16 overflow-hidden">
             <img src={logo.src} alt="Logo" className="w-auto" />
           </div>
 
@@ -80,12 +81,11 @@ export default function Sidebar() {
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${
-                    pathname === item.href
-                      ? 'bg-gray-100 dark:bg-gray-700'
-                      : ''
-                  }`}
-                  onClick={handleMenuClick} // Menü tıklandığında kapansın
+                  className={`flex items-center w-full px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ${pathname === item.href
+                    ? 'bg-gray-100 dark:bg-gray-700'
+                    : ''
+                    }`}
+                  onClick={handleMenuClick}
                 >
                   <item.icon className="w-5 h-5 mr-3" />
                   {item.name}
